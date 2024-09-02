@@ -1,58 +1,40 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Data Entry Form</title>
+  <title>Submit Data</title>
 </head>
 <body>
-  <h1>Data Entry Form</h1>
+  <h1>Submit Data to Google Sheet</h1>
   <form id="dataForm">
-    <label for="date">Date:</label><br>
-    <input type="date" id="date" name="date"><br><br>
-
-    <label for="sl">SL:</label><br>
-    <input type="text" id="sl" name="sl"><br><br>
-
-    <label for="atm">ATM / CRM ID:</label><br>
-    <input type="text" id="atm" name="atm"><br><br>
-
-    <label for="location">Location:</label><br>
-    <input type="text" id="location" name="location"><br><br>
-
-    <label for="amount500">500:</label><br>
-    <input type="number" id="amount500" name="amount500"><br><br>
-
-    <label for="amount1000">1000:</label><br>
-    <input type="number" id="amount1000" name="amount1000"><br><br>
-
-    <label for="total">Total:</label><br>
-    <input type="number" id="total" name="total"><br><br>
-
-    <label for="remarks">Remark's:</label><br>
-    <textarea id="remarks" name="remarks"></textarea><br><br>
-
-    <button type="button" onclick="submitData()">Submit</button>
+    <label for="date">Date:</label>
+    <input type="date" id="date" name="date" required><br><br>
+    <label for="atmCrmId">ATM / CRM ID:</label>
+    <input type="text" id="atmCrmId" name="atmCrmId" required><br><br>
+    <label for="location">Location:</label>
+    <input type="text" id="location" name="location" required><br><br>
+    <label for="fiveHundred">500:</label>
+    <input type="number" id="fiveHundred" name="fiveHundred" required><br><br>
+    <label for="oneThousand">1000:</label>
+    <input type="number" id="oneThousand" name="oneThousand" required><br><br>
+    <label for="total">Total:</label>
+    <input type="number" id="total" name="total" required><br><br>
+    <input type="button" value="Submit" onclick="submitData()">
   </form>
 
   <script>
     function submitData() {
-      var formData = {
-        date: document.getElementById('date').value,
-        sl: document.getElementById('sl').value,
-        atm: document.getElementById('atm').value,
-        location: document.getElementById('location').value,
-        amount500: document.getElementById('amount500').value,
-        amount1000: document.getElementById('amount1000').value,
-        total: document.getElementById('total').value,
-        remarks: document.getElementById('remarks').value
-      };
+      const form = document.getElementById('dataForm');
+      const formData = new FormData(form);
 
       fetch('https://script.google.com/macros/s/AKfycbycqHwDk2Ev3WKp37Z9FpVURzEeR9PIyojmwlKFScaMm9EC-MkVG5X2nnJNk-vT-7d2/exec', {
         method: 'POST',
-        contentType: 'application/json',
-        body: JSON.stringify(formData)
+        body: JSON.stringify(Object.fromEntries(formData)),
+        headers: {
+          'Content-Type': 'application/json'
+        }
       })
       .then(response => response.text())
-      .then(result => alert(result))
+      .then(result => alert('Data submitted successfully'))
       .catch(error => console.error('Error:', error));
     }
   </script>
