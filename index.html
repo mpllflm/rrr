@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -54,7 +55,7 @@
             text-decoration: none;
             display: inline-block;
             font-size: 2em;
-            margin: 10px 5px; /* Adjust margin to fit both buttons */
+            margin: 10px 0;
             border-radius: 5px;
             cursor: pointer;
         }
@@ -154,16 +155,6 @@
                 // Handle error (e.g., notify user)
             }
         }
-
-        function handleTABill() {
-            const name = prompt("Please enter the name to search for in the Google Sheets:");
-
-            if (name) {
-                const sheetUrl = "https://docs.google.com/spreadsheets/d/1Zl8JI8J4TPR3ZOFy3kz-aYIpOOBuQBY8n1hBZ1apm4Y/edit?usp=sharing";
-                const encodedName = encodeURIComponent(name);
-                window.open(`https://docs.google.com/spreadsheets/d/${sheetUrl.split('/')[5]}/edit?usp=sharing#gid=0&range=A1:Z1000&query=${encodedName}`, '_blank');
-            }
-        }
     </script>
 </head>
 <body>
@@ -213,7 +204,6 @@
         <textarea id="Remarks" name="Remarks" required></textarea>
         
         <button type="submit">Submit</button>
-        <button type="button" onclick="handleTABill()">TA BILL</button>
     </form>
 
     <div id="thankYouMessage">Thank you for your valuable time</div>
@@ -221,5 +211,52 @@
     <footer>
         <p>Version 2.0 - Powered by Rahimul Islam. If you need any information please contact 01976755754</p>
     </footer>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Existing head content -->
+</head>
+<body>
+    <!-- Existing body content -->
+
+    <button type="button" onclick="openTA()">TA BILL</button>
+
+    <div id="taBillModal" style="display:none;">
+        <// Google Apps Script Code
+function doGet() {
+  return HtmlService.createHtmlOutputFromFile('Index');
+}
+
+function getDataByName(name) {
+  const sheet = SpreadsheetApp.openById('1Zl8JI8J4TPR3ZOFy3kz-aYIpOOBuQBY8n1hBZ1apm4Y').getSheetByName('Sheet1'); // Update sheet name if necessary
+  const data = sheet.getDataRange().getValues();
+  const headers = data[0];
+  const results = [];
+
+  for (let i = 1; i < data.length; i++) {
+    if (data[i][0] === name) { // Assuming the name is in the first column
+      results.push(data[i]);
+    }
+  }
+
+  return { headers, results };
+}>
+    </div>
+
+    <footer>
+        <p>Version 2.0 - Powered by Rahimul Islam. If you need any information please contact 01976755754</p>
+    </footer>
+
+    <script>
+        function openTA() {
+            const modal = document.getElementById('taBillModal');
+            google.script.run.withSuccessHandler(function(html) {
+                modal.innerHTML = html;
+                modal.style.display = 'block';
+            }).getHtml(); // This function should be implemented in your Apps Script to return the HTML content
+        }
+    </script>
 </body>
 </html>
