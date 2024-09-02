@@ -54,7 +54,7 @@
             text-decoration: none;
             display: inline-block;
             font-size: 2em;
-            margin: 10px 0;
+            margin: 10px 5px; /* Adjusted margin for buttons */
             border-radius: 5px;
             cursor: pointer;
         }
@@ -154,29 +154,6 @@
                 // Handle error (e.g., notify user)
             }
         }
-
-        function openTA() {
-            const jobId = prompt("Enter the Job ID:");
-
-            if (jobId) {
-                fetch(`https://script.google.com/macros/s/https://script.google.com/macros/s/AKfycbzXLZOQ3oAGobRvcyqCUsajm8OifVLY4fOpDxd_I60/dev/exec?jobId=${jobId}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.length === 0) {
-                            alert("No data found for the provided Job ID.");
-                        } else {
-                            let message = `Data for Job ID ${jobId}:\n\n`;
-                            data.forEach(row => {
-                                message += Object.entries(row).map(([key, value]) => `${key}: ${value}`).join('\n') + '\n\n';
-                            });
-                            alert(message);
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                    });
-            }
-        }
     </script>
 </head>
 <body>
@@ -226,7 +203,8 @@
         <textarea id="Remarks" name="Remarks" required></textarea>
         
         <button type="submit">Submit</button>
-        <button type="button" onclick="openTA()">TA BILL</button>
+        <button type="button" onclick="window.open('https://docs.google.com/spreadsheets/d/1FstppDGmBMCmVG5K-owyqD6wl7DKYfFwfCjOC26d-Ag/edit?gid=0#gid=0', '_blank')">Show Your Call</button>
+        <button type="button" onclick="window.open('https://docs.google.com/spreadsheets/d/1Zl8JI8J4TPR3ZOFy3kz-aYIpOOBuQBY8n1hBZ1apm4Y/edit?gid=1995041031#gid=1995041031', '_blank')">TA Bill Show</button>
     </form>
 
     <div id="thankYouMessage">Thank you for your valuable time</div>
