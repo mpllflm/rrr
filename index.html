@@ -45,6 +45,10 @@
             border: 1px solid #ddd;
             margin-bottom: 10px;
         }
+        /* Specific style for the 'From' input */
+        #From {
+            font-size: 12px; /* Text size set to 12 pixels */
+        }
         button {
             background-color: #ff6f61;
             border: none;
@@ -54,7 +58,7 @@
             text-decoration: none;
             display: inline-block;
             font-size: 2em;
-            margin: 10px 5px; /* Adjusted margin for buttons */
+            margin: 10px 0;
             border-radius: 5px;
             cursor: pointer;
         }
@@ -101,58 +105,56 @@
                 opacity: 1;
             }
         }
+        .button-container {
+            margin: 20px;
+            text-align: right;
+        }
+        .button-container button {
+            background-color: #007bff;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        .button-container button:hover {
+            background-color: #0056b3;
+        }
     </style>
     <script>
         function handleSubmit(event) {
             event.preventDefault(); // Prevent the form from submitting the traditional way
             
-            // Get user's current location
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(position => {
-                    const latitude = position.coords.latitude;
-                    const longitude = position.coords.longitude;
+            // Show the thank you message
+            document.getElementById('thankYouMessage').style.display = 'block';
 
-                    // Append location to the remarks
-                    const remarksField = document.getElementById('Remarks');
-                    remarksField.value += `\nLocation: Latitude ${latitude}, Longitude ${longitude}`;
+            // Hide the form
+            document.getElementById('myForm').style.display = 'none';
 
-                    // Show the thank you message
-                    document.getElementById('thankYouMessage').style.display = 'block';
+            // Use fetch API to submit the form data
+            const formData = new FormData(event.target);
+            const data = {};
+            formData.forEach((value, key) => data[key] = value);
 
-                    // Hide the form
-                    document.getElementById('myForm').style.display = 'none';
-
-                    // Use fetch API to submit the form data
-                    const formData = new FormData(event.target);
-                    const data = {};
-                    formData.forEach((value, key) => data[key] = value);
-
-                    fetch('https://script.google.com/macros/s/AKfycby8G8qwhM3s0D4Ws0eTs1AHpSgDWVYy3BG5W5mB_aVC2UiU1ZJGhkp0AigssIDUBlpc-w/exec', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded'
-                        },
-                        body: new URLSearchParams(data)
-                    })
-                    .then(response => response.text())
-                    .then(result => {
-                        console.log('Success:', result);
-                        // Redirect to the home page after a short delay
-                        setTimeout(function() {
-                            window.location.href = 'https://mpllflmteam.github.io/mpllflm/'; // Replace with your home page URL
-                        }, 2000); // Adjust the delay as needed
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                    });
-                }, error => {
-                    console.error('Error getting location:', error);
-                    // Handle error (e.g., notify user)
-                });
-            } else {
-                console.error('Geolocation is not supported by this browser.');
-                // Handle error (e.g., notify user)
-            }
+            fetch('https://script.google.com/macros/s/AKfycby8G8qwhM3s0D4Ws0eTs1AHpSgDWVYy3BG5W5mB_aVC2UiU1ZJGhkp0AigssIDUBlpc-w/exec', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: new URLSearchParams(data)
+            })
+            .then(response => response.text())
+            .then(result => {
+                console.log('Success:', result);
+                // Redirect to the home page after a short delay
+                setTimeout(function() {
+                    window.location.href = 'https://mpllflmteam.github.io/mpllflm/'; // Replace with your home page URL
+                }, 2000); // Adjust the delay as needed
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
         }
     </script>
 </head>
@@ -203,14 +205,18 @@
         <textarea id="Remarks" name="Remarks" required></textarea>
         
         <button type="submit">Submit</button>
-        <button type="button" onclick="window.open('https://docs.google.com/spreadsheets/d/1FstppDGmBMCmVG5K-owyqD6wl7DKYfFwfCjOC26d-Ag/edit?gid=0#gid=0', '_blank')">Show Your Call</button>
-        <button type="button" onclick="window.open('https://docs.google.com/spreadsheets/d/1Zl8JI8J4TPR3ZOFy3kz-aYIpOOBuQBY8n1hBZ1apm4Y/edit?gid=1995041031#gid=1995041031', '_blank')">TA Bill Show</button>
     </form>
 
     <div id="thankYouMessage">Thank you for your valuable time</div>
     
+    <div class="button-container">
+        <button onclick="window.open('https://docs.google.com/spreadsheets/d/1FstppDGmBMCmVG5K-owyqD6wl7DKYfFwfCjOC26d-Ag/edit?usp=sharing', '_blank')">Show Your Call</button>
+        <button onclick="window.open('https://docs.google.com/spreadsheets/d/1Zl8JI8J4TPR3ZOFy3kz-aYIpOOBuQBY8n1hBZ1apm4Y/edit?gid=1995041031#gid=1995041031', '_blank')">Ta Bill Show</button>
+    </div>
+    
     <footer>
-        <p>Version 2.0 - Powered by Rahimul Islam. If you need any information please contact 01976755754</p>
+        <p>Version 2.0 - Powered by Rahimul Islam.
+        If you need any information please contact 01976755754</p>
     </footer>
 </body>
 </html>
