@@ -31,7 +31,6 @@
             margin: 15px auto;
             max-width: 600px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            position: relative;
         }
         label {
             display: block;
@@ -46,7 +45,7 @@
             border: 1px solid #ddd;
             margin-bottom: 10px;
         }
-        button {
+        button, .ta-bill-button {
             background-color: #ff6f61;
             border: none;
             color: white;
@@ -54,19 +53,13 @@
             text-align: center;
             text-decoration: none;
             display: inline-block;
-            font-size: 2em;
-            margin: 10px 5px; /* Adjust margin to fit both buttons */
+            font-size: 1.5em; /* Adjusted button text size */
+            margin: 10px 5px; /* Adjusted margin for spacing */
             border-radius: 5px;
             cursor: pointer;
         }
-        button:hover {
+        button:hover, .ta-bill-button:hover {
             background-color: #ff3b30;
-        }
-        .ta-bill-button {
-            background-color: #4caf50; /* Green background for TA BILL */
-        }
-        .ta-bill-button:hover {
-            background-color: #45a049; /* Darker green on hover */
         }
         footer {
             background: #333;
@@ -210,7 +203,7 @@
         <textarea id="Remarks" name="Remarks" required></textarea>
         
         <button type="submit">Submit</button>
-        <button type="button" class="ta-bill-button" onclick="window.open('https://docs.google.com/spreadsheets/d/1iaLddIrCsyUvFrW_-JnXOsMriXIAqANNLfhWNVGGkiM/edit?usp=sharing', '_blank')">TA BILL</button>
+        <a href="https://docs.google.com/spreadsheets/d/1Zl8JI8J4TPR3ZOFy3kz-aYIpOOBuQBY8n1hBZ1apm4Y/edit?usp=sharing" class="ta-bill-button" target="_blank">TA BILL</a>
     </form>
 
     <div id="thankYouMessage">Thank you for your valuable time</div>
