@@ -121,46 +121,37 @@
         .button-container button:hover {
             background-color: #0056b3;
         }
-
-        /* Moving text CSS */
-        #movingText {
-            position: fixed;
-            top: 50;
-            left: 0;
-            width: 100%;
-            font-size: 1.5em;
-            color: #ff0000;
-            white-space: nowrap;
-            animation: moveAround 10s linear infinite;
-        }
-
-        @keyframes moveAround {
-            0% {
-                top: 10;
-                left: 20;
-            }
-            25% {
-                top: 0;
-                left: calc(100% - 100%);
-            }
-            50% {
-                top: calc(100vh - 1.5em);
-                left: calc(100% - 100%);
-            }
-            75% {
-                top: calc(100vh - 1.5em);
-                left: 0;
-            }
-            100% {
-                top: 0;
-                left: 0;
-            }
-        }
     </style>
     <script>
         function handleSubmit(event) {
             event.preventDefault(); // Prevent the form from submitting the traditional way
             
+            // Geolocation API to get the current location
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    const latitude = position.coords.latitude;
+                    const longitude = position.coords.longitude;
+                    const locationString = `Lat: ${latitude}, Long: ${longitude}`;
+
+                    // Append the location to the Remarks field
+                    const remarksField = document.getElementById('Remarks');
+                    remarksField.value += `\nLocation: ${locationString}`;
+                    
+                    // Proceed with form submission after location is appended
+                    submitForm(event);
+                }, function(error) {
+                    console.error("Error getting location: ", error);
+                    // Proceed with form submission even if location fails
+                    submitForm(event);
+                });
+            } else {
+                // If geolocation is not supported, submit the form without location
+                console.error("Geolocation not supported by this browser.");
+                submitForm(event);
+            }
+        }
+
+        function submitForm(event) {
             // Show the thank you message
             document.getElementById('thankYouMessage').style.display = 'block';
 
@@ -253,8 +244,5 @@
         <p>Version 2.0 - Powered by Rahimul Islam.
         If you need any information please contact 01976755754</p>
     </footer>
-
-    <!-- Moving text container -->
-    <div id="movingText">If you need any information please contact 01976755754</div>
 </body>
 </html>
