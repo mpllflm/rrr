@@ -137,6 +137,27 @@
                 console.error('Error:', error);
             });
         }
+
+        document.getElementById('shortageBtn').addEventListener('click', function() {
+            const choice = prompt('Choose an option: 1 for Dhaka-1, 2 for Dhaka-2');
+            if (choice === '1') {
+                const password = prompt('Enter password for Dhaka-1:');
+                if (password === '1036') {
+                    window.open('https://docs.google.com/spreadsheets/d/1Bl2q0OTTCnNiimtxqB4AOoLs7Xlf4j8HlGVt2zRi9J0/edit?usp=sharing', '_blank');
+                } else {
+                    alert('Incorrect password for Dhaka-1');
+                }
+            } else if (choice === '2') {
+                const password = prompt('Enter password for Dhaka-2:');
+                if (password === '1016') {
+                    window.open('https://docs.google.com/spreadsheets/d/1Bl2q0OTTCnNiimtxqB4AOoLs7Xlf4j8HlGVt2zRi9J0/edit?usp=sharing', '_blank');
+                } else {
+                    alert('Incorrect password for Dhaka-2');
+                }
+            } else {
+                alert('Invalid choice');
+            }
+        });
     </script>
 </head>
 <body>
@@ -193,11 +214,11 @@
     <div class="button-container">
         <button onclick="window.open('https://docs.google.com/spreadsheets/d/1FstppDGmBMCmVG5K-owyqD6wl7DKYfFwfCjOC26d-Ag/pubhtml?gid=0&single=true', '_blank')">Show Your Call</button>
         <button onclick="window.open('https://docs.google.com/spreadsheets/d/1Zl8JI8J4TPR3ZOFy3kz-aYIpOOBuQBY8n1hBZ1apm4Y/edit?gid=1995041031#gid=1995041031', '_blank')">Ta Bill Show</button>
+        <button id="shortageBtn">Show Your Shortage</button> <!-- New Button -->
     </div>
     
     <footer>
-        <p>Version 2.0 - Powered by Rahimul Islam.
-        If you need any information please contact 01976755754</p>
+        <p>Version 2.0 - Powered by Rahimul Islam. If you need any information please contact 01976755754</p>
     </footer>
 </body>
 </html>
