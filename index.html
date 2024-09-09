@@ -114,22 +114,10 @@
     </style>
     <script>
         window.onload = function() {
-    var welcomeMessage = new SpeechSynthesisUtterance("Welcome to Money Plant Link Private Limited.");
-    
-    // Get all available voices and find a female voice
-    var voices = window.speechSynthesis.getVoices();
-    
-    // Set a default voice and change it if a female voice is found
-    for(var i = 0; i < voices.length; i++) {
-        if(voices[i].name.includes('female') || voices[i].gender === 'female') {
-            welcomeMessage.voice = voices[i];
-            break;
-        }
-    }
-
-    window.speechSynthesis.speak(welcomeMessage);
-};
-
+            var welcomeMessage = new SpeechSynthesisUtterance("Welcome to Money Plant Link Private Limited.");
+            welcomeMessage.voice = window.speechSynthesis.getVoices().find(voice => voice.name === 'Google UK English Female' || voice.name.includes('Female'));
+            window.speechSynthesis.speak(welcomeMessage);
+        };
 
         function updateClock() {
             var now = new Date();
