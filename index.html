@@ -261,6 +261,7 @@
 
         function updateExecutiveName() {
             const jobID = document.getElementById('JobID').value;
+            console.log('JobID:', jobID);
             const executiveName = jobExecutives[jobID] || '';
             document.getElementById('ExecutiveName').value = executiveName;
         }
