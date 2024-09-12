@@ -13,11 +13,12 @@
             text-align: center;
         }
         header {
-            margin: 20px auto;
+            margin-top: 20px;
         }
         header img {
             width: 150px;
             height: auto;
+            margin-right: 20px;
         }
         h1 {
             color: #12f77a;
@@ -43,7 +44,6 @@
             border-radius: 5px;
             border: 1px solid #ddd;
             margin-bottom: 10px;
-            box-sizing: border-box;
         }
         button {
             background-color: #ff6f61;
@@ -51,7 +51,7 @@
             color: white;
             padding: 10px 15px;
             text-align: center;
-            font-size: 1.2em;
+            font-size: 2em;
             margin: 10px 0;
             border-radius: 5px;
             cursor: pointer;
@@ -63,21 +63,19 @@
             background: #333;
             padding: 8px;
             color: #fff;
-            width: 100%;
+            width: 70%;
             text-align: center;
-            position: fixed;
-            bottom: 0;
         }
         #thankYouMessage {
             display: none;
             margin-top: 20px;
             color: #ff0000;
-            font-size: 2em;
+            font-size: 3.2em;
             position: relative;
         }
         .button-container {
             margin: 20px;
-            text-align: center;
+            text-align: right;
         }
         .button-container button {
             background-color: #007bff;
@@ -109,19 +107,14 @@
             border: 1px solid #888;
             width: 80%;
             max-width: 400px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
         .modal-content button {
             margin-top: 10px;
         }
     </style>
     <script>
-        window.onload = function() {
-            const today = new Date().toISOString().substr(0, 10);
-            document.getElementById("Date").value = today;
-        };
-
-        const jobExecutives = {
+        // Map of Job IDs to Executive Names
+        const jobIdToName = {
             1024: 'Md. Rokon Uddin',
             1046: 'Md. Rahimul Islam',
             1007: 'Md. Syedur Rahman',
@@ -188,6 +181,13 @@
             2024012231: 'Abdullah Al Sakib',
             2024012266: 'Md. Rasel',
             202408012315: 'Sawpan Das'
+            // Add additional job IDs and names here
+        };
+
+        // Automatically set the current date
+        window.onload = function() {
+            const today = new Date().toISOString().substr(0, 10);
+            document.getElementById("Date").value = today;
         };
 
         function handleSubmit(event) {
@@ -244,12 +244,10 @@
         function promptPassword(zone) {
             const password = prompt("Please enter the password:");
 
-            if ((zone === 'Dhaka-1' && password === '1036') ||
-                (zone === 'Dhaka-2' && password === '1016')) {
-                const url = zone === 'Dhaka-1'
-                    ? 'https://1drv.ms/x/c/d47e761307970fab/EasPlwcTdn4ggNSiAAAAAAAB0A_oHB0xq_bNj2RlnNkSkw?e=oTnbek'
-                    : 'https://1drv.ms/x/c/d47e761307970fab/EasPlwcTdn4ggNS0AAAAAAAB3HqwPm-lPHsrf-vVQqQ0vQ?e=p0fv99';
-                window.open(url, '_blank');
+            if (zone === 'Dhaka-1' && password === '1036') {
+                window.open('https://1drv.ms/x/c/d47e761307970fab/EasPlwcTdn4ggNSiAAAAAAAB0A_oHB0xq_bNj2RlnNkSkw?e=oTnbek', '_blank');
+            } else if (zone === 'Dhaka-2' && password === '1016') {
+                window.open('https://1drv.ms/x/c/d47e761307970fab/EasPlwcTdn4ggNS0AAAAAAAB3HqwPm-lPHsrf-vVQqQ0vQ?e=p0fv99', '_blank');
             } else {
                 alert("Incorrect password.");
             }
@@ -260,145 +258,10 @@
         }
 
         function updateExecutiveName() {
-            const jobID = document.getElementById('JobID').value;
-            console.log('JobID:', 1024
-1046
-1007
-1017
-1270
-1021
-1025
-1026
-1165
-1152
-1448
-1587
-1789
-1945
-1243
-1659
-11127
-11392
-11285
-11358
-11279
-11656
-11733
-11594
-11660
-11747
-11707
-11731
-11999
-11810
-11815
-12113
-12059
-12065
-11968
-12071
-12060
-12038
-1596
-12057
-11374
-11245
-1950
-11336
-11843
-1465
-11719
-11790
-11751
-11364
-11655
-12089
-11247
-12181
-12183
-12182
-11888
-12220
-12208
-2024012232
-2024012223
-11816
-2024012225
-2024012231
-2024012266
-202408012315);
-
-            const executiveName = jobExecutives[jobID] || '';
-            document.getElementById('Md. Rokon Uddin
-Md. Rahimul Islam
-Md. Syedur Rahman
-Abdullah-Al-Mamun
-Palash Roy
-Md. Rocky Mia
-Md. Miraj Hossain
-Md. Kamruzzaman
-Khalid Hossain Shaikh
-Md. Ariful Islam-01 
-Md. Alamgir Kabir
-Abdul Quddus (Jewel)
-Md. Jahangir Alam
-Md. Mofijul Islam
-Md. Al Amin 
-Md. Shajahan Ali
-Md. Zakir Hossin 
-Fahim Ahmmed
-Md. Emrul Islam 
-Md. Masruful Islam
-Abu Shahin 
-Md. Arif Hossain-3
-Md. Zasim Uddin 
-Bikash Roy
-Md. Anowarul Islam
-Md. Rakib Ali 
-SK Ramez Ahmed Rana
-Md. Arif Hossain-4 
-Hasan Mia
-Md. Kaysar Ahmed
-Md. Rabbiul Hasan
-Md. Miraj Mia-2
-Md. Nazmul Hassan
-Shayama Pada Sana
-Mehedi Hasan Sagor
-Abdus Salam
-Atiqur Rahman
-Md. Sofiqul Islam Bashar
-Plock Kumer Raha
-Md. Solaiman Khan
-MD. RAKIB UDDIN
-YASIR ARAFAT
-Meraz Mahmud
-Md. Asaduzzaman Roni
-Mynul Islam
-MD. EMRAN
-SHUVANKAR BAIRAGI
-AKTARUL BIN HASAN
-MD. AL AMIN SARDAR
-MD. ABU RAYHAN
-Anwar Hossain
-Subroto Kuri
-Jahingir Fokir
-Md. Rahedul Islam
-Md. Tanvir Hasan
-Mirajul Islam
-MD. AMIR HOSSAIN
-Kawser Ahmed Fahim
-Md. Nazmul Islam
-Mehedi Hasan
-Abdul Barik
-Mosharof Hossain
-Abdur Rahman
-Abdullah Al Sakib     
-Md. Rasel
-Sawpqn Das').value = 
-;
+            const jobId = document.getElementById('JobID').value;
+            const executiveName = jobIdToName[jobId] || '';
+            document.getElementById('ExecutiveName').value = executiveName;
         }
-
-        document.getElementById('JobID').addEventListener('input', updateExecutiveName);
     </script>
 </head>
 <body>
@@ -415,10 +278,11 @@ Sawpqn Das').value =
         <input type="text" id="Zone" name="Zone" required>
         
         <label for="JobID">Job ID:</label>
-        <input type="text" id="JobID" name="JobID" required>
-        
+        <input type="text" id="JobID" name="JobID" required oninput="updateExecutiveName()">
+
         <label for="ExecutiveName">Executive Name:</label>
         <input type="text" id="ExecutiveName" name="ExecutiveName" required readonly>
+               
         
         <label for="ATMCRMID">ATM/CRM ID:</label>
         <input type="text" id="ATMCRMID" name="ATMCRMID" required>
