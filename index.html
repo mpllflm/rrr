@@ -317,6 +317,13 @@
 
         <label for="TravellingAmount">Travelling Amount:</label>
         <input type="text" id="TravellingAmount" name="TravellingAmount" required>
+
+        <label for="Person">How many people's bills?:</label>
+        <select id="Person" name="Person" required onchange="fetchRemarks()">
+            <option value="">Select an option</option>
+            <option value="1 Person">1 Person</option>
+            <option value="2 Person">2 Person</option>
+        </select>
         
         <label for="Remarks">Remarks:</label>
         <textarea id="Remarks" name="Remarks" required></textarea>
