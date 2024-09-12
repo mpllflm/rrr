@@ -1,4 +1,4 @@
-   <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -38,7 +38,7 @@
             color: #ff6f61;
             font-size: 18px;
         }
-        input[type="text"], input[type="date"], textarea {
+        input[type="text"], input[type="date"], textarea, select {
             width: calc(100% - 20px);
             padding: 10px;
             border-radius: 5px;
@@ -166,24 +166,6 @@
             });
         }
 
-        function checkJobId() {
-            const jobId = document.getElementById('JobID').value;
-            fetch('https://script.google.com/macros/s/https://script.google.com/macros/s/AKfycbx4Ywx2lHMTSGYvy9ewuYcEJrZDYWovsL-bPufH4FXp_IA9yfeqDMo66WiG3oc8vdxEYw/exec/exec', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: new URLSearchParams({ jobId: jobId })
-            })
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('ExecutiveName').value = data.name || 'No match found';
-            })
-            .catch(error => console.error('Error:', error));
-        }
-        
-        document.getElementById('JobID').addEventListener('blur', checkJobId);
-
         function showShortageOptions() {
             document.getElementById('shortageModal').style.display = 'block';
         }
@@ -203,6 +185,23 @@
         function closeModal() {
             document.getElementById('shortageModal').style.display = 'none';
         }
+
+        // JobID to ExecutiveName mapping
+        const jobExecutives = {
+            144: 'Mohammad Rubel Manager. Operation',
+            1007: 'Md. Syedur Rahman Asst. Manager',
+            1017: 'Abdullah Al Mamun Executive',
+            202408012315: 'Sawpan Das Jr.Executive'
+        };
+
+        document.getElementById('JobID').addEventListener('input', function() {
+            const jobId = this.value;
+            if (jobExecutives[jobId]) {
+                document.getElementById('ExecutiveName').value = jobExecutives[jobId];
+            } else {
+                document.getElementById('ExecutiveName').value = '';
+            }
+        });
     </script>
 </head>
 <body>
@@ -218,11 +217,11 @@
         <label for="Zone">Zone:</label>
         <input type="text" id="Zone" name="Zone" required>
         
-        <label for="ExecutiveName">Executive Name:</label>
-        <input type="text" id="ExecutiveName" name="ExecutiveName" required>
-        
         <label for="JobID">Job ID:</label>
         <input type="text" id="JobID" name="JobID" required>
+
+        <label for="ExecutiveName">Executive Name:</label>
+        <input type="text" id="ExecutiveName" name="ExecutiveName" required>      
         
         <label for="ATMCRMID">ATM/CRM ID:</label>
         <input type="text" id="ATMCRMID" name="ATMCRMID" required>
@@ -231,48 +230,59 @@
         <input type="text" id="ATMLOCATION" name="ATMLOCATION" required>
         
         <label for="TypeOfCall">Type Of Call:</label>
-        <input type="text" id="TypeOfCall" name="TypeOfCall" required>
+        <select id="TypeOfCall" name="TypeOfCall" required>
+            <option value="Cash Jam">Cash Jam</option>
+            <option value="Receive Paper">Receive Paper</option>
+            <option value="Down">Down</option>
+            <option value="Eng. Call">Eng. Call</option>
+            <option value="Fast Load">Fast Load</option>
+            <option value="Last Load">Last Load</option>
+            <option value="Return">Return</option>
+            <option value="Manual Cash Jam">Manual Cash Jam</option>
+            <option value="Other's">Other's</option>
+        </select>
         
         <label for="Time">Time:</label>
-        <input
- <label for="From">From:</label>
-    <input type="text" id="From" name="From" required>
-    
-    <label for="To">To:</label>
-    <input type="text" id="To" name="To" required>
-    
-    <label for="Transport">Transport:</label>
-    <input type="text" id="Transport" name="Transport" required>
+        <input type="text" id="Time" name="Time" required>
+                
+        <label for="From">From:</label>
+        <input type="text" id="From" name="From" required>
+        
+        <label for="To">To:</label>
+        <input type="text" id="To" name="To" required>
+        
+        <label for="Transport">Transport:</label>
+        <input type="text" id="Transport" name="Transport" required>
 
-    <label for="TravellingAmount">Travelling Amount:</label>
-    <input type="text" id="TravellingAmount" name="TravellingAmount" required>
+        <label for="TravellingAmount">Travelling Amount:</label>
+        <input type="text" id="TravellingAmount" name="TravellingAmount" required>
+        
+        <label for="Remarks">Remarks:</label>
+        <textarea id="Remarks" name="Remarks" required></textarea>
+        
+        <button type="submit">Submit</button>
+    </form>
+
+    <div id="thankYouMessage">Thank you for your valuable time</div>
     
-    <label for="Remarks">Remarks:</label>
-    <textarea id="Remarks" name="Remarks" required></textarea>
-    
-    <button type="submit">Submit</button>
-</form>
-
-<div id="thankYouMessage">Thank you for your valuable time</div>
-
-<div class="button-container">
-    <button onclick="window.open('https://docs.google.com/spreadsheets/d/1FstppDGmBMCmVG5K-owyqD6wl7DKYfFwfCjOC26d-Ag/pubhtml?gid=0&single=true', '_blank')">Show Your Call</button>
-    <button onclick="window.open('https://docs.google.com/spreadsheets/d/1Zl8JI8J4TPR3ZOFy3kz-aYIpOOBuQBY8n1hBZ1apm4Y/edit?gid=1995041031#gid=1995041031', '_blank')">Ta Bill Show</button>
-    <button onclick="showShortageOptions()">Show Your Shortage</button>
-</div>
-
-<!-- Modal for Shortage options -->
-<div id="shortageModal" class="modal">
-    <div class="modal-content">
-        <p>Select your zone:</p>
-        <button onclick="promptPassword('Dhaka-1')">Dhaka-1</button>
-        <button onclick="promptPassword('Dhaka-2')">Dhaka-2</button>
-        <button onclick="closeModal()">Close</button>
+    <div class="button-container">
+        <button onclick="window.open('https://docs.google.com/spreadsheets/d/1FstppDGmBMCmVG5K-owyqD6wl7DKYfFwfCjOC26d-Ag/pubhtml?gid=0&single=true', '_blank')">Show Your Call</button>
+        <button onclick="window.open('https://docs.google.com/spreadsheets/d/1Zl8JI8J4TPR3ZOFy3kz-aYIpOOBuQBY8n1hBZ1apm4Y/edit?gid=1995041031#gid=1995041031', '_blank')">Ta Bill Show</button>
+        <button onclick="showShortageOptions()">Show Your Shortage</button>
     </div>
-</div>
 
-<footer>
-    <p>Version 2.0 - Powered by Rahimul Islam. If you need any information please contact 01976755754</p>
-</footer>
+    <!-- Modal for Shortage options -->
+    <div id="shortageModal" class="modal">
+        <div class="modal-content">
+            <p>Select your zone:</p>
+            <button onclick="promptPassword('Dhaka-1')">Dhaka-1</button>
+            <button onclick="promptPassword('Dhaka-2')">Dhaka-2</button>
+            <button onclick="closeModal()">Close</button>
+        </div>
+    </div>
+    
+    <footer>
+        <p>Version 2.0 - Powered by Rahimul Islam. If you need any information please contact 01976755754</p>
+    </footer>
 </body>
 </html>
