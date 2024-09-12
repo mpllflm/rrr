@@ -13,12 +13,11 @@
             text-align: center;
         }
         header {
-            margin-top: 20px;
+            margin: 20px auto;
         }
         header img {
             width: 150px;
             height: auto;
-            margin-right: 20px;
         }
         h1 {
             color: #12f77a;
@@ -44,6 +43,7 @@
             border-radius: 5px;
             border: 1px solid #ddd;
             margin-bottom: 10px;
+            box-sizing: border-box;
         }
         button {
             background-color: #ff6f61;
@@ -51,7 +51,7 @@
             color: white;
             padding: 10px 15px;
             text-align: center;
-            font-size: 2em;
+            font-size: 1.2em;
             margin: 10px 0;
             border-radius: 5px;
             cursor: pointer;
@@ -63,19 +63,21 @@
             background: #333;
             padding: 8px;
             color: #fff;
-            width: 70%;
+            width: 100%;
             text-align: center;
+            position: fixed;
+            bottom: 0;
         }
         #thankYouMessage {
             display: none;
             margin-top: 20px;
             color: #ff0000;
-            font-size: 3.2em;
+            font-size: 2em;
             position: relative;
         }
         .button-container {
             margin: 20px;
-            text-align: right;
+            text-align: center;
         }
         .button-container button {
             background-color: #007bff;
@@ -107,19 +109,18 @@
             border: 1px solid #888;
             width: 80%;
             max-width: 400px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
         .modal-content button {
             margin-top: 10px;
         }
     </style>
     <script>
-        // Automatically set the current date
         window.onload = function() {
             const today = new Date().toISOString().substr(0, 10);
             document.getElementById("Date").value = today;
         };
 
-        // JobID to ExecutiveName mapping
         const jobExecutives = {
             1024: 'Md. Rokon Uddin',
             1046: 'Md. Rahimul Islam',
@@ -243,10 +244,12 @@
         function promptPassword(zone) {
             const password = prompt("Please enter the password:");
 
-            if (zone === 'Dhaka-1' && password === '1036') {
-                window.open('https://1drv.ms/x/c/d47e761307970fab/EasPlwcTdn4ggNSiAAAAAAAB0A_oHB0xq_bNj2RlnNkSkw?e=oTnbek', '_blank');
-            } else if (zone === 'Dhaka-2' && password === '1016') {
-                window.open('https://1drv.ms/x/c/d47e761307970fab/EasPlwcTdn4ggNS0AAAAAAAB3HqwPm-lPHsrf-vVQqQ0vQ?e=p0fv99', '_blank');
+            if ((zone === 'Dhaka-1' && password === '1036') ||
+                (zone === 'Dhaka-2' && password === '1016')) {
+                const url = zone === 'Dhaka-1'
+                    ? 'https://1drv.ms/x/c/d47e761307970fab/EasPlwcTdn4ggNSiAAAAAAAB0A_oHB0xq_bNj2RlnNkSkw?e=oTnbek'
+                    : 'https://1drv.ms/x/c/d47e761307970fab/EasPlwcTdn4ggNS0AAAAAAAB3HqwPm-lPHsrf-vVQqQ0vQ?e=p0fv99';
+                window.open(url, '_blank');
             } else {
                 alert("Incorrect password.");
             }
@@ -282,7 +285,7 @@
         <input type="text" id="JobID" name="JobID" required>
         
         <label for="ExecutiveName">Executive Name:</label>
-        <input type="text" id="ExecutiveName" name="ExecutiveName" required>
+        <input type="text" id="ExecutiveName" name="ExecutiveName" required readonly>
         
         <label for="ATMCRMID">ATM/CRM ID:</label>
         <input type="text" id="ATMCRMID" name="ATMCRMID" required>
