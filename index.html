@@ -38,7 +38,7 @@
             color: #ff6f61;
             font-size: 18px;
         }
-        input[type="text"], input[type="date"], textarea {
+        input[type="text"], input[type="date"], textarea, select {
             width: calc(100% - 20px);
             padding: 10px;
             border-radius: 5px;
@@ -282,8 +282,7 @@
 
         <label for="ExecutiveName">Executive Name:</label>
         <input type="text" id="ExecutiveName" name="ExecutiveName" required readonly>
-               
-        
+                
         <label for="ATMCRMID">ATM/CRM ID:</label>
         <input type="text" id="ATMCRMID" name="ATMCRMID" required>
         
@@ -291,7 +290,18 @@
         <input type="text" id="ATMLOCATION" name="ATMLOCATION" required>
         
         <label for="TypeOfCall">Type Of Call:</label>
-        <input type="text" id="TypeOfCall" name="TypeOfCall" required>
+        <select id="TypeOfCall" name="TypeOfCall" required>
+            <option value="">Select an option</option>
+            <option value="Cash Jam">Cash Jam</option>
+            <option value="Receive Paper">Receive Paper</option>
+            <option value="Down">Down</option>
+            <option value="Eng. Call">Eng. Call</option>
+            <option value="Fast Load">Fast Load</option>
+            <option value="Last Load">Last Load</option>
+            <option value="Return">Return</option>
+            <option value="Manual Cash Jam">Manual Cash Jam</option>
+            <option value="Other’s">Other’s</option>
+        </select>
         
         <label for="Time">Time:</label>
         <input type="text" id="Time" name="Time" required>
