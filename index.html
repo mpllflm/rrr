@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,13 +6,6 @@
      crossorigin="anonymous"></script>
     <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-555K29453R"></script>
-<meta http-equiv="refresh" content="0; url=https://mpllflm.vercel.app/" />
-    <title>Redirecting...</title>
-  </head>
-  <body>
-    <p>If you are not redirected automatically, follow this <a href="https://mpllflm.vercel.app/">link</a>.</p>
-  </body>
-</html>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -207,7 +199,25 @@
             const data = {};
             formData.forEach((value, key) => data[key] = value);
 
-            
+            fetch('https://script.google.com/macros/s/AKfycby8G8qwhM3s0D4Ws0eTs1AHpSgDWVYy3BG5W5mB_aVC2UiU1ZJGhkp0AigssIDUBlpc-w/exec', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: new URLSearchParams(data)
+            })
+            .then(response => response.text())
+            .then(result => {
+                console.log('Success:', result);
+                setTimeout(function() {
+                    window.location.href = 'https://mpllflm.vercel.app/';
+                }, 2000);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
         function showShortageOptions() {
             document.getElementById('shortageModal').style.display = 'block';
         }
